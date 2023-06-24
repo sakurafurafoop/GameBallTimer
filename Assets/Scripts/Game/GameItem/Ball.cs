@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Game
 {
@@ -13,11 +14,25 @@ namespace Game
         [SerializeField] private AudioClip clipBall;
         [SerializeField] private AudioClip clipGoal;
 
+        [SerializeField] private MeshRenderer render;
+        
+
         public void ResetPosition()
         {
             this.gameObject.transform.position = new Vector3(0, 4, 0);
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+            render.material.SetFloat("_ClipTime", 1);
+        }
+
+        public IEnumerator DisplayBall()
+        {
+            for (float i = 1; i > -0.1; i -= 0.1f)
+            {
+                render.material.SetFloat("_ClipTime", i);
+                yield return new WaitForSeconds(0.025f);
+            }
         }
 
         public void ChangePositon(int xPos, int maxPos)
@@ -29,6 +44,7 @@ namespace Game
         public void OnGravity()
         {
             rb.useGravity = true;
+            rb.isKinematic = false;
             isGoal = false;
         }
 

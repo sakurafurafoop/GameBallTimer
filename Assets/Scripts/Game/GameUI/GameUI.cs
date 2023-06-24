@@ -11,6 +11,9 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textGame;
 
+    //パネル
+    [SerializeField] private Image panelTitle;
+
     [SerializeField] private Button buttonOK;
 
     public void DisplayTimeGoal()
@@ -31,5 +34,10 @@ public class GameUI : MonoBehaviour
     public void OnToggleBtnOK(bool isActive)
     {
         buttonOK.gameObject.SetActive(isActive);
+    }
+
+    public void OnActivePanelTitle(bool isActive)
+    {
+        panelTitle.gameObject.SetActive(isActive);
     }
 }

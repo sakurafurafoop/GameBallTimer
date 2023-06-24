@@ -22,10 +22,12 @@ namespace Game
 		private void ResetStage()
         {
 			GameData.Instance.timeNow = 0;
+			GameData.Instance.stage++;
+			Scene.GameResultUI.OffResultPanel();
 			Scene.GameUI.DisplayTimeNow();
 			Scene.Ball.ResetPosition();
 			Scene.SliderPosition.gameObject.SetActive(false);
-
+			Scene.Ball.StartCoroutine(Scene.Ball.DisplayBall());
         }
 
 		private void DecideStage()

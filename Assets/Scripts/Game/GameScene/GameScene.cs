@@ -33,7 +33,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            stateMachine.Initialize(StateName.InitGame);
+            stateMachine.Initialize(StateName.Title);
         }
 
         // Update is called once per frame
@@ -42,6 +42,7 @@ namespace Game
             stateMachine.MainUpdate();
         }
 
+        // ボール位置確定
         public void OnClickOK()
         {
             StateMachine.ChangeState(StateName.RollBall);
@@ -50,6 +51,26 @@ namespace Game
         public void OnClickNext()
         {
             StateMachine.ChangeState(StateName.DecideStage);
+        }
+
+        public void OnClickGameStart()
+        {
+            stateMachine.ChangeState(StateName.InitGame);
+        }
+
+        public void OnClickFinish()
+        {
+            stateMachine.ChangeState(StateName.GameResult);
+        }
+
+        public void OnClickBackTitle()
+        {
+            stateMachine.ChangeState(StateName.Title);
+        }
+
+        public void OnClickRetry()
+        {
+            stateMachine.ChangeState(StateName.InitGame);
         }
     }
 }

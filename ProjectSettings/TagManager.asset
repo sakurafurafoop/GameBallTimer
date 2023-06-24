@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Goal
   - Stage
+  - Ball
   layers:
   - Default
   - TransparentFX
