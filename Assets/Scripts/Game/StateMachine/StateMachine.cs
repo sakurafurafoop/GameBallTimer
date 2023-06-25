@@ -13,6 +13,8 @@ namespace Game
         {
             StateDict = new Dictionary<StateName, IState>();
             //StateDictに代入
+			StateDict[StateName.GameResult] = new GameResultState(scene);
+			StateDict[StateName.Title] = new TitleState(scene);
 			StateDict[StateName.InitGame] = new InitGameState(scene);
 			StateDict[StateName.StageResult] = new StageResultState(scene);
 			StateDict[StateName.RollBall] = new RollBallState(scene);

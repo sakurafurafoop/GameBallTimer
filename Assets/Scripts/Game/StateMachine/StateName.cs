@@ -6,4 +6,6 @@ public enum StateName
 	RollBall,
 	StageResult,
 	InitGame,
+	Title,
+	GameResult,
 }

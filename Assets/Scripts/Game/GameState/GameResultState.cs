@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Game
 {
-	public class InitGameState : IState
+	public class GameResultState : IState
 	{
 		private GameScene Scene;
 
-		public InitGameState(GameScene scene)
+		public GameResultState(GameScene scene)
 		{
 			Scene = scene;
 		}
@@ -14,24 +14,19 @@ namespace Game
 		public void Enter()
 		{
 			// Enter method code here
-			InitGame();
+			Scene.GameResultUI.OnActiveTotal(true);
 		}
-
-		private void InitGame()
-        {
-			GameData.Instance.totalScore = 0;
-			GameData.Instance.stage = 0;
-        }
 
 		public void MainUpdate()
 		{
 			// MainUpdate method code here
-			Scene.StateMachine.ChangeState(StateName.DecideStage);
 		}
 
 		public void Exit()
 		{
 			// Exit method code here
+			Scene.GameResultUI.OffResultPanel();
+			Scene.GameResultUI.OnActiveTotal(false);
 		}
 	}
 }

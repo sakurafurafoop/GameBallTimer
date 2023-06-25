@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameData : SingletonMonoBehaviour<GameData>
 {
+    public float timeTarget { get; set; }
     public float timeGoal { get; set; }
     public float timeNow { get; set; }
     public int totalScore { get; set; }
+    public int stage { get; set; }
+    public bool isSuccess { get; set; }
+
+    public const float DISPLAYTIME = 0.5f; //ボールの演出時間
 }

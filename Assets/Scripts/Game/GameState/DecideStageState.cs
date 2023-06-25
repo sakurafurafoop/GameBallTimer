@@ -22,10 +22,13 @@ namespace Game
 		private void ResetStage()
         {
 			GameData.Instance.timeNow = 0;
+			GameData.Instance.timeGoal = 0;
+			GameData.Instance.stage++;
+			Scene.GameResultUI.OffResultPanel();
 			Scene.GameUI.DisplayTimeNow();
 			Scene.Ball.ResetPosition();
 			Scene.SliderPosition.gameObject.SetActive(false);
-
+			Scene.Ball.DisplayBall();
         }
 
 		private void DecideStage()
@@ -39,7 +42,7 @@ namespace Game
         /// </summary>
 		private void DecideTimeGoal()
         {
-			GameData.Instance.timeGoal = Random.Range(2, 6);
+			GameData.Instance.timeTarget = Random.Range(2, 6);
 			Scene.GameUI.DisplayTimeGoal();
         }
 
