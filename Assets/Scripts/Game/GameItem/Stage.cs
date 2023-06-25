@@ -7,7 +7,7 @@ public class Stage : MonoBehaviour
     public int xSize { get; private set; }
     public void RotateStage()
     {
-        xSize = 10;
+        xSize = Random.Range(8, 13);
         this.gameObject.transform.rotation = Quaternion.Euler(0, 0, Random.Range(5, 20));
     }
 }

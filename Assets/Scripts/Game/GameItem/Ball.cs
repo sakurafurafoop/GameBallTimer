@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace Game
 {
@@ -9,6 +10,7 @@ namespace Game
     {
         [SerializeField] private Rigidbody rb;
         public bool isGoal { get; private set; }
+
 
         [SerializeField] private AudioSource audioBall;
         [SerializeField] private AudioClip clipBall;
@@ -26,13 +28,13 @@ namespace Game
             render.material.SetFloat("_ClipTime", 1);
         }
 
-        public IEnumerator DisplayBall()
+        public void DisplayBall()
         {
-            for (float i = 1; i > -0.1; i -= 0.1f)
-            {
-                render.material.SetFloat("_ClipTime", i);
-                yield return new WaitForSeconds(0.025f);
-            }
+            float clipTime = 1;
+            DOTween.To(x => clipTime = x, 1, 0, GameData.DISPLAYTIME)
+                .OnUpdate(() => render.material.SetFloat("_ClipTime", clipTime))
+                .SetEase(Ease.Linear);
+
         }
 
         public void ChangePositon(int xPos, int maxPos)
@@ -49,18 +51,32 @@ namespace Game
         }
 
         private void OnCollisionEnter(Collision collision)
-        {
-
-            
+        {        
             if (collision.gameObject.tag == "Goal")
             {
                 isGoal = true;
                 PlaySE(clipGoal);
+                NoDisplayBall();
             }
             else if(collision.gameObject.tag == "Stage")
             {
                 PlaySE(clipBall);
             }
+        }
+
+
+
+        public void NoDisplayBall()
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(new Vector3(0, 300));
+            float clipTime = 0;
+            DOTween.To(x => clipTime = x, 0, 1, GameData.DISPLAYTIME * 1.5f)
+                .OnUpdate(() => render.material.SetFloat("_ClipTime", clipTime))
+                .OnComplete(() => rb.isKinematic = true)
+                .SetEase(Ease.Linear);
+            
         }
 
         private void PlaySE(AudioClip clip)

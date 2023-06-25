@@ -12,6 +12,10 @@ namespace Game
         // GameObject
         [SerializeField] private Ball ball;
         public Ball Ball => ball;
+
+        [SerializeField] private Gun gun;
+        public Gun Gun => gun;
+
         [SerializeField] private Stage stage;
         public Stage Stage => stage;
 

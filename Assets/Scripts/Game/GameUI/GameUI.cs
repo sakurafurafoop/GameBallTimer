@@ -18,7 +18,7 @@ public class GameUI : MonoBehaviour
 
     public void DisplayTimeGoal()
     {
-        textTimeGoal.text = GameData.Instance.timeGoal.ToString("F0");
+        textTimeGoal.text = GameData.Instance.timeTarget.ToString("F0");
     }
 
     public void DisplayTimeNow()

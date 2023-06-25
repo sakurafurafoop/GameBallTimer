@@ -51,10 +51,9 @@ namespace Game
 
         private void SetSlider()
         {
-            sliderResult.minValue = GameData.Instance.timeGoal - 2.0f;
-            sliderResult.maxValue = GameData.Instance.timeGoal + 2.0f;
+            sliderResult.minValue = GameData.Instance.timeTarget - 2.0f;
+            sliderResult.maxValue = GameData.Instance.timeTarget + 2.0f;
             sliderResult.value = GameData.Instance.timeNow;
-            Debug.Log(nowScore);
             if(Mathf.Abs(nowScore) >= 0 && Mathf.Abs(nowScore) < 0.5f)
             {
                 imageFill.color = Color.blue;

@@ -24,7 +24,7 @@ namespace Game
 
 		private float GetDistance()
         {
-			float num = GameData.Instance.timeNow - GameData.Instance.timeGoal;
+			float num = GameData.Instance.timeNow - GameData.Instance.timeTarget;
 			return num;
         }
 
