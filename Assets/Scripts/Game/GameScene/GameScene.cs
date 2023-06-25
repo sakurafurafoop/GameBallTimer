@@ -13,13 +13,13 @@ namespace Game
         [SerializeField] private Ball ball;
         public Ball Ball => ball;
 
-        [SerializeField] private Gun gun;
-        public Gun Gun => gun;
-
-        [SerializeField] private Stage stage;
-        public Stage Stage => stage;
-
         // 他クラス
+        [SerializeField] private StageManager stageManager;
+        public StageManager StageManager => stageManager;
+
+        [SerializeField] private AudioPlayer audioPlayer;
+        public AudioPlayer AudioPlayer => audioPlayer;
+
         [SerializeField] private GameUI gameUI;
         public GameUI GameUI => gameUI;
 
@@ -50,31 +50,37 @@ namespace Game
         public void OnClickOK()
         {
             StateMachine.ChangeState(StateName.RollBall);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.OK);
         }
 
         public void OnClickNext()
         {
             StateMachine.ChangeState(StateName.DecideStage);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.Button);
         }
 
         public void OnClickGameStart()
         {
             stateMachine.ChangeState(StateName.InitGame);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.Button);
         }
 
         public void OnClickFinish()
         {
             stateMachine.ChangeState(StateName.GameResult);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.Button);
         }
 
         public void OnClickBackTitle()
         {
             stateMachine.ChangeState(StateName.Title);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.Button);
         }
 
         public void OnClickRetry()
         {
             stateMachine.ChangeState(StateName.InitGame);
+            AudioPlayer.PlaySE(AudioPlayer.AudioName.Button);
         }
     }
 }

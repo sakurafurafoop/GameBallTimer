@@ -15,24 +15,33 @@ namespace Game
         [SerializeField] private Slider sliderResult;
         [SerializeField] private Image imageFill;
 
+        [SerializeField] private TextMeshProUGUI textResultTitle;
         [SerializeField] private TextMeshProUGUI textResult;
         [SerializeField] private TextMeshProUGUI textSecond;
         [SerializeField] private TextMeshProUGUI textTotalScore;
         [SerializeField] private TextMeshProUGUI textStage;
+        [SerializeField] private TextMeshProUGUI textScore;
 
         [SerializeField] private Button btnNextStage;
 
-        private float nowScore;
+        private float secondScore;
 
-        public void OnResultPanel(float score)
+        public void OnResultPanel(float second, int nowScore)
         {
-            panelResult.gameObject.SetActive(true);
-            nowScore = score;
+            secondScore = second;
             DisplayResult();
             SetSlider();
-            textSecond.text = nowScore.ToString("F2") + "Sec";
+            ChangeTextResultTitle(GameData.Instance.stage.ToString() + "ステージ目の結果");
+            textScore.text = nowScore.ToString();
+            textSecond.text = (Mathf.Sign(secondScore) == 1 ? "+" : "") + secondScore.ToString("F2") + "秒";
             textTotalScore.text = GameData.Instance.totalScore.ToString();
             textStage.text = GameData.Instance.stage.ToString();
+            panelResult.gameObject.SetActive(true);
+        }
+
+        public void ChangeTextResultTitle(string str)
+        {
+            textResultTitle.text = str;
         }
 
         private void DisplayResult()
@@ -54,15 +63,15 @@ namespace Game
             sliderResult.minValue = GameData.Instance.timeTarget - 2.0f;
             sliderResult.maxValue = GameData.Instance.timeTarget + 2.0f;
             sliderResult.value = GameData.Instance.timeNow;
-            if(Mathf.Abs(nowScore) >= 0 && Mathf.Abs(nowScore) < 0.5f)
+            if(Mathf.Abs(secondScore) >= 0 && Mathf.Abs(secondScore) < 0.5f)
             {
                 imageFill.color = Color.blue;
             }
-            else if (Mathf.Abs(nowScore) >= 0.5f && Mathf.Abs(nowScore) < 1f)
+            else if (Mathf.Abs(secondScore) >= 0.5f && Mathf.Abs(secondScore) < 1f)
             {
                 imageFill.color = Color.green;
             }
-            else if (Mathf.Abs(nowScore) >= 1f && Mathf.Abs(nowScore) < 1.5f)
+            else if (Mathf.Abs(secondScore) >= 1f && Mathf.Abs(secondScore) < 1.5f)
             {
                 imageFill.color = Color.yellow;
             }

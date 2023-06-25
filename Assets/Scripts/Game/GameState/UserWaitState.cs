@@ -14,6 +14,7 @@ namespace Game
 		public void Enter()
 		{
 			// Enter method code here
+			Scene.SliderPosition.ResetPositon(Scene.StageManager.GetSize());
 			Scene.GameUI.OnToggleBtnOK(true);
 			Scene.SliderPosition.gameObject.SetActive(true);
 		}
@@ -21,7 +22,7 @@ namespace Game
 		public void MainUpdate()
 		{
 			// MainUpdate method code here
-			Scene.Ball.ChangePositon(Scene.SliderPosition.GetValue(), Scene.Stage.xSize);
+			Scene.Ball.ChangePositon(Scene.SliderPosition.GetValue(), Scene.StageManager.GetSize());
 		}
 
 		public void Exit()

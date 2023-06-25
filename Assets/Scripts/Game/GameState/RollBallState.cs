@@ -18,7 +18,6 @@ namespace Game
 			Scene.Ball.OnGravity();
 			GameData.Instance.timeNow = 0;
 			stateTimer = 0;
-			Scene.Gun.OnActiveGun(true);
 		}
 
 		public void MainUpdate()
@@ -38,11 +37,6 @@ namespace Game
             {
 				GameData.Instance.timeNow += Time.deltaTime;
 				Scene.GameUI.DisplayTimeNow();
-				Scene.Gun.MoveGun();
-				if (Input.GetMouseButton(0))
-				{
-					Scene.Gun.ParticlePlay();
-				}
 			}
 		}
 
@@ -51,7 +45,6 @@ namespace Game
 		public void Exit()
 		{
 			// Exit method code here
-			Scene.Gun.OnActiveGun(false);
 		}
 	}
 }

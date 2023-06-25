@@ -15,6 +15,8 @@ namespace Game
 		{
 			// Enter method code here
 			Scene.GameResultUI.OnActiveTotal(true);
+			Scene.GameResultUI.ChangeTextResultTitle("総合結果");
+			Scene.AudioPlayer.PlaySE(AudioPlayer.AudioName.Result);
 		}
 
 		public void MainUpdate()
