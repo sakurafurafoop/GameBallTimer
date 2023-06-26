@@ -15,8 +15,9 @@ namespace Game
 		{
 			// Enter method code here
 			ResetStage();
+			Scene.StageManager.CreateStage();
+			Scene.Ball.DisplayBall();
 			DecideTimeGoal();
-			DecideStage();
 		}
 
 		private void ResetStage()
@@ -28,21 +29,23 @@ namespace Game
 			Scene.GameUI.DisplayTimeNow();
 			Scene.Ball.ResetPosition();
 			Scene.SliderPosition.gameObject.SetActive(false);
-			Scene.Ball.DisplayBall();
-        }
-
-		private void DecideStage()
-        {
-			Scene.Stage.RotateStage();
-			Scene.SliderPosition.ResetPositon(Scene.Stage.xSize);
 		}
+
 
 		/// <summary>
         /// ゴールタイムを決める関数
         /// </summary>
 		private void DecideTimeGoal()
         {
-			GameData.Instance.timeTarget = Random.Range(2, 6);
+			if(Scene.StageManager.stageNum == 1)
+            {
+				GameData.Instance.timeTarget = Random.Range(2, 6);
+			}
+            else
+            {
+				GameData.Instance.timeTarget = Random.Range(6, 16);
+			}
+			
 			Scene.GameUI.DisplayTimeGoal();
         }
 

@@ -16,7 +16,15 @@ namespace Game
 			// Enter method code here
 			GameData.Instance.totalScore += GetScore();
 			GameData.Instance.isSuccess = GetIsSuccess();
-			Scene.GameResultUI.OnResultPanel(GetDistance());
+            if (GameData.Instance.isSuccess)
+            {
+				Scene.AudioPlayer.PlaySE(AudioPlayer.AudioName.Clear);
+            }
+            else
+            {
+				Scene.AudioPlayer.PlaySE(AudioPlayer.AudioName.Miss);
+			}
+			Scene.GameResultUI.OnResultPanel(GetDistance(), GetScore());
 			Scene.GameResultUI.OnActiveRound(true);
 			
 		}

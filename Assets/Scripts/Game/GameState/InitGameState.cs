@@ -15,6 +15,8 @@ namespace Game
 		{
 			// Enter method code here
 			InitGame();
+			Scene.StageManager.InitGame();
+			Scene.AudioPlayer.InitGame();
 		}
 
 		private void InitGame()
