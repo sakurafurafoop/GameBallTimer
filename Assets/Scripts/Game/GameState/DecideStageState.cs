@@ -17,7 +17,9 @@ namespace Game
 			ResetStage();
 			Scene.StageManager.CreateStage();
 			Scene.Ball.DisplayBall();
+			Scene.GameUI.OnToggleTextTime(true);
 			DecideTimeGoal();
+			Scene.StateMachine.ChangeState(StateName.UserWait);
 		}
 
 		private void ResetStage()
@@ -43,7 +45,7 @@ namespace Game
 			}
             else
             {
-				GameData.Instance.timeTarget = Random.Range(6, 16);
+				GameData.Instance.timeTarget = Random.Range(6, 14);
 			}
 			
 			Scene.GameUI.DisplayTimeGoal();
@@ -52,7 +54,7 @@ namespace Game
 		public void MainUpdate()
 		{
 			// MainUpdate method code here
-			Scene.StateMachine.ChangeState(StateName.UserWait);
+			
 		}
 
 		public void Exit()

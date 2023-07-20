@@ -25,7 +25,7 @@ namespace Game
 				Scene.AudioPlayer.PlaySE(AudioPlayer.AudioName.Miss);
 			}
 			Scene.GameResultUI.OnResultPanel(GetDistance(), GetScore());
-			Scene.GameResultUI.OnActiveRound(true);
+			Scene.GameResultUI.IsActiveRound(true);
 			
 		}
 
@@ -63,7 +63,7 @@ namespace Game
 		{
 			// Exit method code here
 			
-			Scene.GameResultUI.OnActiveRound(false);
+			Scene.GameResultUI.IsActiveRound(false);
 		}
 	}
 }

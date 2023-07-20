@@ -7,6 +7,7 @@ TagManager:
   - Goal
   - Stage
   - Ball
+  - Fall
   layers:
   - Default
   - TransparentFX

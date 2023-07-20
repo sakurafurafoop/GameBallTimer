@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using TMPro;
 
 namespace Game
@@ -9,8 +10,10 @@ namespace Game
     public class GameResultUI : MonoBehaviour
     {
         [SerializeField] private Image panelResult;
+        [SerializeField] private Image imageFade;
         [SerializeField] private GameObject round;
         [SerializeField] private GameObject total;
+        private const float OPENTIME = 0.8f;
 
         [SerializeField] private Slider sliderResult;
         [SerializeField] private Image imageFill;
@@ -24,9 +27,10 @@ namespace Game
 
         [SerializeField] private Button btnNextStage;
 
+
         private float secondScore;
 
-        public void OnResultPanel(float second, int nowScore)
+        public void OnResultPanel(float second = 0, int nowScore = 0)
         {
             secondScore = second;
             DisplayResult();
@@ -36,7 +40,17 @@ namespace Game
             textSecond.text = (Mathf.Sign(secondScore) == 1 ? "+" : "") + secondScore.ToString("F2") + "秒";
             textTotalScore.text = GameData.Instance.totalScore.ToString();
             textStage.text = GameData.Instance.stage.ToString();
-            panelResult.gameObject.SetActive(true);
+            DisplayResultPanel();
+        }
+
+        private void DisplayResultPanel()
+        {
+            imageFade.gameObject.SetActive(true);
+            imageFade.material.SetFloat("_progress", 1);
+            float progressValue = 1;
+            DOTween.To(x => progressValue = x, 1, 0, OPENTIME)
+                .OnUpdate(() => imageFade.material.SetFloat("_progress", progressValue))
+                .OnComplete(() => panelResult.gameObject.SetActive(true));
         }
 
         public void ChangeTextResultTitle(string str)
@@ -65,33 +79,39 @@ namespace Game
             sliderResult.value = GameData.Instance.timeNow;
             if(Mathf.Abs(secondScore) >= 0 && Mathf.Abs(secondScore) < 0.5f)
             {
-                imageFill.color = Color.blue;
+                imageFill.color = new Color(50 / 255, 180 / 255, 255 / 255);
             }
             else if (Mathf.Abs(secondScore) >= 0.5f && Mathf.Abs(secondScore) < 1f)
             {
-                imageFill.color = Color.green;
+                imageFill.color = new Color(166 / 255, 255 / 255, 50 / 255);
             }
             else if (Mathf.Abs(secondScore) >= 1f && Mathf.Abs(secondScore) < 1.5f)
             {
-                imageFill.color = Color.yellow;
+                imageFill.color = new Color(255 / 255, 221 / 255, 50 / 255);
             }
             else
             {
-                imageFill.color = Color.red;
+                imageFill.color = new Color(255 / 255, 50 / 255, 50 / 255);
             }
         }
 
         public void OffResultPanel()
         {
             panelResult.gameObject.SetActive(false);
+            imageFade.material.SetFloat("_progress", 0);
+            float progressValue = 0;
+            DOTween.To(x => progressValue = x, 0, 1, OPENTIME * 1.5f)
+                .OnUpdate(() => imageFade.material.SetFloat("_progress", progressValue))
+                .OnComplete(() => imageFade.gameObject.SetActive(false));
+     
         }
 
-        public void OnActiveRound(bool isActive)
+        public void IsActiveRound(bool isActive)
         {
             round.SetActive(isActive);
         }
 
-        public void OnActiveTotal(bool isActive)
+        public void IsActiveTotal(bool isActive)
         {
             total.SetActive(isActive);
         }

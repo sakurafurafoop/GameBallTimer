@@ -158,7 +158,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
     m_Value: 1
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 11.8
+    m_Value: 15
   gaussianEnd:
     m_OverrideState: 1
     m_Value: 30
@@ -245,7 +245,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   redOutBlueIn:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 15
   greenOutRedIn:
     m_OverrideState: 0

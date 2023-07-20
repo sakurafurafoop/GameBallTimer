@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 namespace Game
 {
@@ -14,9 +15,21 @@ namespace Game
 		public void Enter()
 		{
 			// Enter method code here
-			Scene.GameResultUI.OnActiveTotal(true);
+			Scene.GameResultUI.IsActiveTotal(true);
 			Scene.GameResultUI.ChangeTextResultTitle("総合結果");
 			Scene.AudioPlayer.PlaySE(AudioPlayer.AudioName.Result);
+            if (GameData.Instance.isFall)
+            {
+				Scene.GameUI.DisplayTextGame("GameOver...");
+				Sequence seq = DOTween.Sequence()
+					.AppendInterval(0.6f)
+					.AppendCallback(() =>
+					{
+						Scene.GameResultUI.IsActiveRound(false);
+						Scene.GameResultUI.OnResultPanel();
+						Scene.GameUI.DisplayTextGame(string.Empty);
+					});
+            }
 		}
 
 		public void MainUpdate()
@@ -28,7 +41,7 @@ namespace Game
 		{
 			// Exit method code here
 			Scene.GameResultUI.OffResultPanel();
-			Scene.GameResultUI.OnActiveTotal(false);
+			Scene.GameResultUI.IsActiveTotal(false);
 		}
 	}
 }

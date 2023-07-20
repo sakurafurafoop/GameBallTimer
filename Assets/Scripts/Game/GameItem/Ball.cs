@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 namespace Game
 {
@@ -17,6 +16,13 @@ namespace Game
         [SerializeField] private AudioClip clipGoal;
 
         [SerializeField] private MeshRenderer render;
+
+        private const float ACCELEPOWER = 180;
+        private const float BREAKPOWER = 20;
+        private const float BREAKTIME = 1.2f;
+
+        private bool isTouchStage;
+        private GameObject touchStage;
         
 
         public void ResetPosition()
@@ -26,6 +32,7 @@ namespace Game
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
             render.material.SetFloat("_ClipTime", 1);
+            isTouchStage = false;
         }
 
         public void DisplayBall()
@@ -61,9 +68,22 @@ namespace Game
             else if(collision.gameObject.tag == "Stage")
             {
                 PlaySE(clipBall);
+                isTouchStage = true;
+                touchStage = collision.gameObject;
+            }
+            else if(collision.gameObject.tag == "Fall")
+            {
+                GameData.Instance.isFall = true;
             }
         }
 
+        private void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.tag == "Stage")
+            {
+                isTouchStage = false;
+            }
+        }
 
 
         public void NoDisplayBall()
@@ -84,6 +104,35 @@ namespace Game
             audioBall.PlayOneShot(clip);
         }
 
-        
+        public void OnClickAcceleration()
+        {
+            GameData.Instance.canAccele = false;
+            Vector3 force;
+            if (isTouchStage)
+            {
+                if(Mathf.Sign(touchStage.transform.rotation.z) == 1)
+                {
+                    force = Vector3.left * ACCELEPOWER;
+                }
+                else
+                {
+                    force = Vector3.right * ACCELEPOWER;
+                }
+            }
+            else
+            {
+                force = rb.velocity.normalized * ACCELEPOWER;
+            }
+            rb.AddForce(force);
+        }
+
+        public void OnClickBreak()
+        {
+            GameData.Instance.canBreak = false;
+            rb.angularDrag = BREAKPOWER;
+            float anguler = BREAKPOWER;
+            DOTween.To(x => anguler = x, BREAKPOWER, 0.05f, BREAKTIME)
+                .OnUpdate(() => rb.angularDrag = anguler);
+        }
     }
 }
